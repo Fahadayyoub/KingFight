@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/king_gate.gd" id="1_gate"]
+[ext_resource type="AudioStream" path="res://sounds/power_up.wav" id="2_sound"]
+
+[sub_resource type="RectangleShape2D" id="ApproachShape"]
+size = Vector2(76, 84)
+
+[sub_resource type="RectangleShape2D" id="GateShape"]
+size = Vector2(38, 108)
+
+[node name="KingGate" type="Node2D"]
+script = ExtResource("1_gate")
+
+[node name="Approach" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Approach"]
+position = Vector2(-29, -43)
+shape = SubResource("ApproachShape")
+
+[node name="GateBlock" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBlock"]
+position = Vector2(0, -44)
+shape = SubResource("GateShape")
+
+[node name="OpenSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_sound")
+bus = &"SFX"

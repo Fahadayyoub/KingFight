@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Key Finder"
-run/main_scene="uid://e4wwrcdg4mhq"
-config/features=PackedStringArray("4.7", "Mobile")
+run/main_scene="res://scenes/start_menu.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [audio]
@@ -21,12 +21,24 @@ buses/default_bus_layout="uid://nwoblbuhp5ls"
 
 [autoload]
 
-GameMusic="*uid://dahbk7h6ddyaq"
+GameMusic="*res://scenes/game_music.tscn"
+Progress="*res://scripts/game_progress.gd"
 
 [display]
 
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/window_width_override=960
+window/size/window_height_override=540
+window/handheld/orientation=4
+
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[input_devices]
+
+pointing/emulate_mouse_from_touch=true
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 
@@ -34,6 +46,8 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
+
 textures/canvas_textures/default_texture_filter=0
-rendering_device/driver.windows="d3d12"
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

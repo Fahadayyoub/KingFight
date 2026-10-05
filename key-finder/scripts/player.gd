@@ -6,6 +6,10 @@ const JUMP_VELOCITY = -300.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+func _ready() -> void:
+	if Progress.has_checkpoint:
+		global_position = Progress.checkpoint_position
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
