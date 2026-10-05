@@ -2,6 +2,9 @@
 extends Node2D
 
 const FONT := preload("res://fonts/PixelOperator8-Bold.ttf")
+@export_file("*.tscn") var next_scene_path := ""
+@export var completed_level := 1
+
 var opening := false
 var open_amount := 0.0
 var won := false
@@ -59,25 +62,30 @@ func show_victory() -> void:
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	veil.add_child(box)
 	var title := Label.new()
-	title.text = "THE KING'S GATE IS OPEN!"
+	title.text = "LEVEL %d COMPLETE!" % completed_level if not next_scene_path.is_empty() else "THE KING'S GATE IS OPEN!"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_override("font", FONT)
 	title.add_theme_font_size_override("font_size", 22)
 	title.add_theme_color_override("font_color", Color("ffe2a0"))
 	box.add_child(title)
 	var message := Label.new()
-	message.text = "You completed the kingdom trail."
+	message.text = "Ready for the next level?" if not next_scene_path.is_empty() else "You completed the kingdom trail."
 	message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	message.add_theme_font_override("font", FONT)
 	message.add_theme_font_size_override("font_size", 14)
 	box.add_child(message)
 	var again := Button.new()
-	again.text = "PLAY AGAIN"
+	again.text = "NEXT LEVEL" if not next_scene_path.is_empty() else "PLAY AGAIN"
 	again.add_theme_font_override("font", FONT)
 	again.add_theme_font_size_override("font_size", 16)
 	box.add_child(again)
 	again.pressed.connect(func():
 		Progress.reset()
-		get_tree().reload_current_scene()
+		if next_scene_path.is_empty():
+			get_tree().reload_current_scene()
+		else:
+			var error := get_tree().change_scene_to_file(next_scene_path)
+			if error != OK:
+				push_error("Could not open the next level: %s" % error)
 	)
 	again.grab_focus()

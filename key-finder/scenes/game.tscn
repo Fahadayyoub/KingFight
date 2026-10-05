@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://e4wwrcdg4mhq"]
+[gd_scene format=3 uid="uid://c41hqbq7q1blw"]
 
 [ext_resource type="PackedScene" uid="uid://dgliscjrutw0y" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://c38jii0gxtob0" path="res://fonts/PixelOperator8-Bold.ttf" id="2_0tnpc"]
@@ -14,8 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/king_gate.tscn" id="13_gate"]
 [ext_resource type="PackedScene" path="res://scenes/checkpoint.tscn" id="14_checkpoint"]
 [ext_resource type="Texture2D" uid="uid://cb6xe5yy2w1h" path="res://sprites/coin.png" id="15_coin_icon"]
-
-[ext_resource type="Script" path="res://scripts/level_progress_hud.gd" id="16_progress_hud"]
+[ext_resource type="Script" uid="uid://vsgxsg7n0jjr" path="res://scripts/level_progress_hud.gd" id="16_progress_hud"]
 
 [sub_resource type="StyleBoxFlat" id="CoinHUDPanel"]
 content_margin_left = 9.0
@@ -298,7 +297,7 @@ theme_override_fonts/font = ExtResource("2_0tnpc")
 theme_override_font_sizes/font_size = 14
 text = "0"
 
-[node name="ProgressHUD" type="Control" parent="CoinHUD/HUD"]
+[node name="ProgressHUD" type="Control" parent="CoinHUD/HUD" unique_id=91857553]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -652,6 +651,8 @@ respawn_position = Vector2(3350, -15)
 
 [node name="KingGate" parent="." unique_id=1204182085 instance=ExtResource("13_gate")]
 position = Vector2(3720, -8)
+next_scene_path = null
+completed_level = null
 
 [node name="TouchControls" type="CanvasLayer" parent="." unique_id=137158822]
 script = ExtResource("11_touch")

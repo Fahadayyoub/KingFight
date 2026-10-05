@@ -30,14 +30,12 @@ window/size/viewport_width=960
 window/size/viewport_height=540
 window/size/window_width_override=960
 window/size/window_height_override=540
-window/handheld/orientation=4
-
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=4
 
 [input_devices]
 
-pointing/emulate_mouse_from_touch=true
 pointing/emulate_touch_from_mouse=true
 
 [physics]
@@ -46,8 +44,7 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
-textures/vram_compression/import_etc2_astc=true
-
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

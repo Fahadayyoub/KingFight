@@ -1,6 +1,6 @@
 extends Control
 
-const GAME_SCENE := preload("res://scenes/game.tscn")
+const GAME_SCENE := preload("res://scenes/level_1.tscn")
 const KNIGHT := preload("res://sprites/knight.png")
 const FONT := preload("res://fonts/PixelOperator8-Bold.ttf")
 const BASE_SIZE := Vector2(960, 540)

@@ -1,9 +1,12 @@
 extends Control
 
 const FONT := preload("res://fonts/PixelOperator8-Bold.ttf")
-const START_X := 13.0
 const TRACK_LEFT := 22.0
 const TRACK_WIDTH := 416.0
+
+@export var start_x := 13.0
+@export var first_checkpoint_name := "MountainCheckpoint"
+@export var second_checkpoint_name := "GateCheckpoint"
 
 var player: CharacterBody2D
 var gate_x := 3720.0
@@ -13,12 +16,12 @@ var checkpoint_unlocked := [false, false]
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var game := get_tree().current_scene
+	var game := get_node("../../..")
 	player = game.get_node("Player")
 	gate_x = game.get_node("KingGate").global_position.x
 	checkpoint_xs = [
-		game.get_node("MountainCheckpoint").global_position.x,
-		game.get_node("GateCheckpoint").global_position.x,
+		game.get_node(first_checkpoint_name).global_position.x,
+		game.get_node(second_checkpoint_name).global_position.x,
 	]
 	refresh()
 
@@ -29,7 +32,7 @@ func refresh() -> void:
 	if not is_instance_valid(player):
 		return
 	Progress.furthest_x = maxf(Progress.furthest_x, player.global_position.x)
-	var next_ratio := clampf((Progress.furthest_x - START_X) / (gate_x - START_X), 0.0, 1.0)
+	var next_ratio := clampf((Progress.furthest_x - start_x) / (gate_x - start_x), 0.0, 1.0)
 	var changed := absf(next_ratio - progress_ratio) > 0.0005
 	progress_ratio = next_ratio
 	for i in range(checkpoint_xs.size()):
@@ -76,7 +79,7 @@ func _draw() -> void:
 			draw_circle(center, 3.0, Color("fff3ba"))
 
 	for index in range(checkpoint_xs.size()):
-		var fraction := (checkpoint_xs[index] - START_X) / (gate_x - START_X)
+		var fraction := (checkpoint_xs[index] - start_x) / (gate_x - start_x)
 		var point := stone_center(fraction)
 		var flag_color := Color("ffd47c") if checkpoint_unlocked[index] else Color("91b8ad")
 		draw_line(point + Vector2(0, -11), point + Vector2(0, -32), Color("dfc397"), 2.0)
