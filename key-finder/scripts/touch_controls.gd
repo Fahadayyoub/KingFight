@@ -14,6 +14,7 @@ func _ready() -> void:
 	make_button("Right", "ui_right", ">")
 	make_button("Jump", "ui_accept", "JUMP")
 	get_viewport().size_changed.connect(layout_buttons)
+	Settings.controls_changed.connect(layout_buttons)
 	layout_buttons()
 
 func make_button(button_name: String, action: String, caption: String) -> void:
@@ -49,6 +50,8 @@ func button_texture(color: Color) -> ImageTexture:
 	return ImageTexture.create_from_image(image)
 
 func layout_buttons() -> void:
+	if buttons.size() != 3:
+		return
 	var viewport_size := get_viewport().get_visible_rect().size
 	var safe := Rect2(Vector2.ZERO, viewport_size)
 	if OS.has_feature("mobile"):
@@ -58,9 +61,14 @@ func layout_buttons() -> void:
 			var ratio := viewport_size / screen_size
 			safe = Rect2(Vector2(screen_safe.position) * ratio, Vector2(screen_safe.size) * ratio)
 	var bottom := safe.end.y - BUTTON_SIZE - 24.0
-	buttons[2].position = Vector2(safe.position.x + 24.0, bottom) # Jump on the left.
-	buttons[0].position = Vector2(safe.end.x - BUTTON_SIZE * 2 - 40.0, bottom)
-	buttons[1].position = Vector2(safe.end.x - BUTTON_SIZE - 24.0, bottom)
+	if Settings.arrows_on_left:
+		buttons[0].position = Vector2(safe.position.x + 24.0, bottom)
+		buttons[1].position = Vector2(safe.position.x + BUTTON_SIZE + 40.0, bottom)
+		buttons[2].position = Vector2(safe.end.x - BUTTON_SIZE - 24.0, bottom)
+	else:
+		buttons[2].position = Vector2(safe.position.x + 24.0, bottom)
+		buttons[0].position = Vector2(safe.end.x - BUTTON_SIZE * 2 - 40.0, bottom)
+		buttons[1].position = Vector2(safe.end.x - BUTTON_SIZE - 24.0, bottom)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:

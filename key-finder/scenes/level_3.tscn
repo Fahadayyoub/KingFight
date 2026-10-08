@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" path="res://scenes/checkpoint.tscn" id="11_checkpoint"]
 [ext_resource type="Script" path="res://scripts/level_progress_hud.gd" id="12_progress"]
 
+[ext_resource type="PackedScene" path="res://scenes/level_settings.tscn" id="level_settings"]
+
 [sub_resource type="StyleBoxFlat" id="CoinHUDPanel"]
 content_margin_left = 9.0
 content_margin_top = 5.0
@@ -517,3 +519,5 @@ offset_bottom = -54.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 10
 text = "FINAL BRIDGE"
+
+[node name="LevelSettings" parent="." instance=ExtResource("level_settings")]

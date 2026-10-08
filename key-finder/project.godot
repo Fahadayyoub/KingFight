@@ -21,6 +21,7 @@ buses/default_bus_layout="uid://nwoblbuhp5ls"
 
 [autoload]
 
+Settings="*res://scripts/game_settings.gd"
 GameMusic="*res://scenes/game_music.tscn"
 Progress="*res://scripts/game_progress.gd"
 

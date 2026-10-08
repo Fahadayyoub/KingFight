@@ -6,6 +6,12 @@ var score := 0
 var count_tween: Tween
 
 func _ready() -> void:
+	var panel: PanelContainer = coin_count.get_parent().get_parent()
+	panel.offset_left = -110.0
+	panel.offset_right = 110.0
+	var hearts := Control.new()
+	hearts.set_script(preload("res://scripts/lives_hud.gd"))
+	coin_count.get_parent().add_child(hearts)
 	update_count()
 
 func add_point() -> void:

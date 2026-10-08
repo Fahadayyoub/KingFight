@@ -1,11 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cjv4t6dg02tjd"]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
-[ext_resource type="FontFile" path="res://fonts/PixelOperator8-Bold.ttf" id="2_font"]
-[ext_resource type="Texture2D" path="res://sprites/world_tileset.png" id="3_tiles"]
-[ext_resource type="PackedScene" path="res://scenes/kill_zone.tscn" id="4_kill"]
+[ext_resource type="PackedScene" uid="uid://dgliscjrutw0y" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="FontFile" uid="uid://c38jii0gxtob0" path="res://fonts/PixelOperator8-Bold.ttf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://di2vyo8c6vh0d" path="res://sprites/world_tileset.png" id="3_tiles"]
+[ext_resource type="PackedScene" uid="uid://b0hxcx21xjg0e" path="res://scenes/kill_zone.tscn" id="4_kill"]
 [ext_resource type="PackedScene" path="res://scenes/king_gate.tscn" id="5_gate"]
-[ext_resource type="Script" path="res://scripts/touch_controls.gd" id="6_touch"]
+[ext_resource type="Script" uid="uid://d0qwfcbgs4a7j" path="res://scripts/touch_controls.gd" id="6_touch"]
+[ext_resource type="Script" uid="uid://oknhn24wpdd4" path="res://scripts/game_manager.gd" id="9_manager"]
+[ext_resource type="Texture2D" uid="uid://cb6xe5yy2w1h" path="res://sprites/coin.png" id="10_coin_icon"]
+
+[ext_resource type="PackedScene" path="res://scenes/level_settings.tscn" id="level_settings"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_tiles")
@@ -178,12 +182,32 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3nnn0"]
 
-[node name="Level1" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="CoinHUDPanel"]
+content_margin_left = 9.0
+content_margin_top = 5.0
+content_margin_right = 9.0
+content_margin_bottom = 5.0
+bg_color = Color(0.07, 0.16, 0.18, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.92, 0.72, 0.38, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
-[node name="Sky" type="CanvasLayer" parent="."]
+[sub_resource type="AtlasTexture" id="CoinHUDIcon"]
+atlas = ExtResource("10_coin_icon")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Level1" type="Node2D" unique_id=1041022198]
+
+[node name="Sky" type="CanvasLayer" parent="." unique_id=2115763024]
 layer = -10
 
-[node name="SkyColor" type="ColorRect" parent="Sky"]
+[node name="SkyColor" type="ColorRect" parent="Sky" unique_id=562684440]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -191,15 +215,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.09, 0.23, 0.26, 1)
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." unique_id=575307216]
 tile_set = SubResource("TileSet_3nnn0")
 format = 2
 layer_0/tile_data = PackedInt32Array(65528, 131072, 0, 131064, 131072, 1, 196600, 131072, 1, 262136, 131072, 1, 327672, 131072, 1, 393208, 131072, 1, 458744, 131072, 1, 65529, 131072, 0, 131065, 131072, 1, 196601, 131072, 1, 262137, 131072, 1, 327673, 131072, 1, 393209, 131072, 1, 458745, 131072, 1, 65530, 131072, 0, 131066, 131072, 1, 196602, 131072, 1, 262138, 131072, 1, 327674, 131072, 1, 393210, 131072, 1, 458746, 131072, 1, 65531, 131072, 0, 131067, 131072, 1, 196603, 131072, 1, 262139, 131072, 1, 327675, 131072, 1, 393211, 131072, 1, 458747, 131072, 1, 65532, 131072, 0, 131068, 131072, 1, 196604, 131072, 1, 262140, 131072, 1, 327676, 131072, 1, 393212, 131072, 1, 458748, 131072, 1, 65533, 131072, 0, 131069, 131072, 1, 196605, 131072, 1, 262141, 131072, 1, 327677, 131072, 1, 393213, 131072, 1, 458749, 131072, 1, 65534, 131072, 0, 131070, 131072, 1, 196606, 131072, 1, 262142, 131072, 1, 327678, 131072, 1, 393214, 131072, 1, 458750, 131072, 1, 65535, 131072, 0, 131071, 131072, 1, 196607, 131072, 1, 262143, 131072, 1, 327679, 131072, 1, 393215, 131072, 1, 458751, 131072, 1, 0, 131072, 0, 65536, 131072, 1, 131072, 131072, 1, 196608, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 1, 131072, 0, 65537, 131072, 1, 131073, 131072, 1, 196609, 131072, 1, 262145, 131072, 1, 327681, 131072, 1, 393217, 131072, 1, 2, 131072, 0, 65538, 131072, 1, 131074, 131072, 1, 196610, 131072, 1, 262146, 131072, 1, 327682, 131072, 1, 393218, 131072, 1, 3, 131072, 0, 65539, 131072, 1, 131075, 131072, 1, 196611, 131072, 1, 262147, 131072, 1, 327683, 131072, 1, 393219, 131072, 1, 4, 131072, 0, 65540, 131072, 1, 131076, 131072, 1, 196612, 131072, 1, 262148, 131072, 1, 327684, 131072, 1, 393220, 131072, 1, 5, 131072, 0, 65541, 131072, 1, 131077, 131072, 1, 196613, 131072, 1, 262149, 131072, 1, 327685, 131072, 1, 393221, 131072, 1, 6, 131072, 0, 65542, 131072, 1, 131078, 131072, 1, 196614, 131072, 1, 262150, 131072, 1, 327686, 131072, 1, 393222, 131072, 1, 7, 131072, 0, 65543, 131072, 1, 131079, 131072, 1, 196615, 131072, 1, 262151, 131072, 1, 327687, 131072, 1, 393223, 131072, 1, 8, 131072, 0, 65544, 131072, 1, 131080, 131072, 1, 196616, 131072, 1, 262152, 131072, 1, 327688, 131072, 1, 393224, 131072, 1, 9, 131072, 0, 65545, 131072, 1, 131081, 131072, 1, 196617, 131072, 1, 262153, 131072, 1, 327689, 131072, 1, 393225, 131072, 1, 10, 131072, 0, 65546, 131072, 1, 131082, 131072, 1, 196618, 131072, 1, 262154, 131072, 1, 327690, 131072, 1, 393226, 131072, 1, 11, 131072, 0, 65547, 131072, 1, 131083, 131072, 1, 196619, 131072, 1, 262155, 131072, 1, 327691, 131072, 1, 393227, 131072, 1, 12, 131072, 0, 65548, 131072, 1, 131084, 131072, 1, 196620, 131072, 1, 262156, 131072, 1, 327692, 131072, 1, 393228, 131072, 1, 13, 131072, 0, 65549, 131072, 1, 131085, 131072, 1, 196621, 131072, 1, 262157, 131072, 1, 327693, 131072, 1, 393229, 131072, 1, 14, 131072, 0, 65550, 131072, 1, 131086, 131072, 1, 196622, 131072, 1, 262158, 131072, 1, 327694, 131072, 1, 393230, 131072, 1, 15, 131072, 0, 65551, 131072, 1, 131087, 131072, 1, 196623, 131072, 1, 262159, 131072, 1, 327695, 131072, 1, 393231, 131072, 1, 16, 131072, 0, 65552, 131072, 1, 131088, 131072, 1, 196624, 131072, 1, 262160, 131072, 1, 327696, 131072, 1, 393232, 131072, 1, 17, 131072, 0, 65553, 131072, 1, 131089, 131072, 1, 196625, 131072, 1, 262161, 131072, 1, 327697, 131072, 1, 393233, 131072, 1, 18, 131072, 0, 65554, 131072, 1, 131090, 131072, 1, 196626, 131072, 1, 262162, 131072, 1, 327698, 131072, 1, 393234, 131072, 1, 19, 131072, 0, 65555, 131072, 1, 131091, 131072, 1, 196627, 131072, 1, 262163, 131072, 1, 327699, 131072, 1, 393235, 131072, 1, 20, 131072, 0, 65556, 131072, 1, 131092, 131072, 1, 196628, 131072, 1, 262164, 131072, 1, 327700, 131072, 1, 393236, 131072, 1, 21, 131072, 0, 65557, 131072, 1, 131093, 131072, 1, 196629, 131072, 1, 262165, 131072, 1, 327701, 131072, 1, 393237, 131072, 1, 24, 131072, 0, 65560, 131072, 1, 131096, 131072, 1, 196632, 131072, 1, 262168, 131072, 1, 327704, 131072, 1, 393240, 131072, 1, 25, 131072, 0, 65561, 131072, 1, 131097, 131072, 1, 196633, 131072, 1, 262169, 131072, 1, 327705, 131072, 1, 393241, 131072, 1, 26, 131072, 0, 65562, 131072, 1, 131098, 131072, 1, 196634, 131072, 1, 262170, 131072, 1, 327706, 131072, 1, 393242, 131072, 1, 27, 131072, 0, 65563, 131072, 1, 131099, 131072, 1, 196635, 131072, 1, 262171, 131072, 1, 327707, 131072, 1, 393243, 131072, 1, 28, 131072, 0, 65564, 131072, 1, 131100, 131072, 1, 196636, 131072, 1, 262172, 131072, 1, 327708, 131072, 1, 393244, 131072, 1, 29, 131072, 0, 65565, 131072, 1, 131101, 131072, 1, 196637, 131072, 1, 262173, 131072, 1, 327709, 131072, 1, 393245, 131072, 1, 30, 131072, 0, 65566, 131072, 1, 131102, 131072, 1, 196638, 131072, 1, 262174, 131072, 1, 327710, 131072, 1, 393246, 131072, 1, 31, 131072, 0, 65567, 131072, 1, 131103, 131072, 1, 196639, 131072, 1, 262175, 131072, 1, 327711, 131072, 1, 393247, 131072, 1, 32, 131072, 0, 65568, 131072, 1, 131104, 131072, 1, 196640, 131072, 1, 262176, 131072, 1, 327712, 131072, 1, 393248, 131072, 1, 33, 131072, 0, 65569, 131072, 1, 131105, 131072, 1, 196641, 131072, 1, 262177, 131072, 1, 327713, 131072, 1, 393249, 131072, 1, 34, 131072, 0, 65570, 131072, 1, 131106, 131072, 1, 196642, 131072, 1, 262178, 131072, 1, 327714, 131072, 1, 393250, 131072, 1, 35, 131072, 0, 65571, 131072, 1, 131107, 131072, 1, 196643, 131072, 1, 262179, 131072, 1, 327715, 131072, 1, 393251, 131072, 1, 36, 131072, 0, 65572, 131072, 1, 131108, 131072, 1, 196644, 131072, 1, 262180, 131072, 1, 327716, 131072, 1, 393252, 131072, 1, 37, 131072, 0, 65573, 131072, 1, 131109, 131072, 1, 196645, 131072, 1, 262181, 131072, 1, 327717, 131072, 1, 393253, 131072, 1, 38, 131072, 0, 65574, 131072, 1, 131110, 131072, 1, 196646, 131072, 1, 262182, 131072, 1, 327718, 131072, 1, 393254, 131072, 1, 39, 131072, 0, 65575, 131072, 1, 131111, 131072, 1, 196647, 131072, 1, 262183, 131072, 1, 327719, 131072, 1, 393255, 131072, 1, 40, 131072, 0, 65576, 131072, 1, 131112, 131072, 1, 196648, 131072, 1, 262184, 131072, 1, 327720, 131072, 1, 393256, 131072, 1, 41, 131072, 0, 65577, 131072, 1, 131113, 131072, 1, 196649, 131072, 1, 262185, 131072, 1, 327721, 131072, 1, 393257, 131072, 1, 42, 131072, 0, 65578, 131072, 1, 131114, 131072, 1, 196650, 131072, 1, 262186, 131072, 1, 327722, 131072, 1, 393258, 131072, 1, 43, 131072, 0, 65579, 131072, 1, 131115, 131072, 1, 196651, 131072, 1, 262187, 131072, 1, 327723, 131072, 1, 393259, 131072, 1, 44, 131072, 0, 65580, 131072, 1, 131116, 131072, 1, 196652, 131072, 1, 262188, 131072, 1, 327724, 131072, 1, 393260, 131072, 1, 45, 131072, 0, 65581, 131072, 1, 131117, 131072, 1, 196653, 131072, 1, 262189, 131072, 1, 327725, 131072, 1, 393261, 131072, 1, 46, 131072, 0, 65582, 131072, 1, 131118, 131072, 1, 196654, 131072, 1, 262190, 131072, 1, 327726, 131072, 1, 393262, 131072, 1, 47, 131072, 0, 65583, 131072, 1, 131119, 131072, 1, 196655, 131072, 1, 262191, 131072, 1, 327727, 131072, 1, 393263, 131072, 1, 48, 131072, 0, 65584, 131072, 1, 131120, 131072, 1, 196656, 131072, 1, 262192, 131072, 1, 327728, 131072, 1, 393264, 131072, 1)
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=707727546 instance=ExtResource("1_player")]
 position = Vector2(32, -1)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1854413279]
 position = Vector2(40, -29)
 zoom = Vector2(4, 4)
 limit_left = -32
@@ -207,20 +231,20 @@ limit_right = 768
 limit_bottom = 85
 position_smoothing_enabled = true
 
-[node name="KillZone" parent="." instance=ExtResource("4_kill")]
+[node name="KillZone" parent="." unique_id=65933955 instance=ExtResource("4_kill")]
 position = Vector2(0, 140)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=177408972]
 shape = SubResource("WorldBoundaryShape2D_3nnn0")
 
-[node name="KingGate" parent="." instance=ExtResource("5_gate")]
+[node name="KingGate" parent="." unique_id=97769574 instance=ExtResource("5_gate")]
 position = Vector2(656, 0)
 next_scene_path = "res://scenes/level_2.tscn"
 
-[node name="TouchControls" type="CanvasLayer" parent="."]
+[node name="TouchControls" type="CanvasLayer" parent="." unique_id=1858649954]
 script = ExtResource("6_touch")
 
-[node name="LevelTitle" type="Label" parent="."]
+[node name="LevelTitle" type="Label" parent="." unique_id=2053856361]
 offset_left = 8.0
 offset_top = -75.0
 offset_right = 220.0
@@ -230,7 +254,7 @@ theme_override_font_sizes/font_size = 10
 text = "LEVEL 1
 Walk right to the gate"
 
-[node name="JumpHint" type="Label" parent="."]
+[node name="JumpHint" type="Label" parent="." unique_id=1844527422]
 offset_left = 292.0
 offset_top = -66.0
 offset_right = 460.0
@@ -239,3 +263,86 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 10
 text = "JUMP HERE!
 SPACE / JUMP"
+
+[node name="GameManger" type="Node" parent="." unique_id=1418756803]
+unique_name_in_owner = true
+script = ExtResource("9_manager")
+
+[node name="CoinHUD" type="CanvasLayer" parent="." unique_id=959698810]
+layer = 11
+
+[node name="HUD" type="Control" parent="CoinHUD" unique_id=1393559192]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="CoinHUD/HUD" unique_id=2058928043]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 14.0
+offset_right = 62.0
+offset_bottom = 52.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("CoinHUDPanel")
+
+[node name="Row" type="HBoxContainer" parent="CoinHUD/HUD/Panel" unique_id=360748534]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="CoinHUD/HUD/Panel/Row" unique_id=1013455766]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("CoinHUDIcon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Count" type="Label" parent="CoinHUD/HUD/Panel/Row" unique_id=223381742]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.67, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="TouchControls2" type="CanvasLayer" parent="." unique_id=698090444]
+script = ExtResource("6_touch")
+
+[node name="JumpHint2" type="Label" parent="." unique_id=1882260045]
+offset_left = 312.0
+offset_top = -66.0
+offset_right = 480.0
+offset_bottom = -34.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 10
+text = "JUMP TO THE BAR
+SPACE / JUMP"
+
+[node name="SecondBridgeHint" type="Label" parent="." unique_id=1970396084]
+offset_left = 830.0
+offset_top = -70.0
+offset_right = 1010.0
+offset_bottom = -53.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 10
+text = "JUMP TO THE BAR"
+
+[node name="ThirdBridgeHint" type="Label" parent="." unique_id=671168313]
+offset_left = 1330.0
+offset_top = -70.0
+offset_right = 1510.0
+offset_bottom = -53.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 10
+text = "LAST BRIDGE!"
+
+[node name="LevelSettings" parent="." instance=ExtResource("level_settings")]

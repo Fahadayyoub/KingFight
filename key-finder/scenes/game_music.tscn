@@ -3,6 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://q0txyqv8raav" path="res://music/time_for_adventure.mp3" id="1_aw8cc"]
 
 [node name="GameMusic" type="AudioStreamPlayer" unique_id=1112658922]
+process_mode = 3
 stream = ExtResource("1_aw8cc")
 autoplay = true
 bus = &"Music"

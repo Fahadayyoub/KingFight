@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/final_boss.gd" id="2_boss"]
+[ext_resource type="AudioStream" path="res://sounds/explosion.wav" id="3_throw"]
+[ext_resource type="AudioStream" path="res://sounds/hurt.wav" id="4_hurt"]
+[ext_resource type="AudioStream" path="res://sounds/power_up.wav" id="5_win"]
+
+[ext_resource type="PackedScene" path="res://scenes/kill_zone.tscn" id="6_contact"]
+
+[sub_resource type="RectangleShape2D" id="BossContact"]
+size = Vector2(34, 42)
+
+[node name="CrownSlime" instance=ExtResource("1_enemy")]
+script = ExtResource("2_boss")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -30)
+scale = Vector2(2.5, 2.5)
+
+[node name="KillZone" parent="." index="1"]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="Contact" parent="." instance=ExtResource("6_contact")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Contact"]
+position = Vector2(0, -21)
+shape = SubResource("BossContact")
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_throw")
+bus = &"SFX"
+volume_db = -10.0
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hurt")
+bus = &"SFX"
+
+[node name="VictorySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_win")
+bus = &"SFX"

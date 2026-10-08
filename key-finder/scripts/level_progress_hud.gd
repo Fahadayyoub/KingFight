@@ -7,22 +7,26 @@ const TRACK_WIDTH := 416.0
 @export var start_x := 13.0
 @export var first_checkpoint_name := "MountainCheckpoint"
 @export var second_checkpoint_name := "GateCheckpoint"
+@export var checkpoint_names: Array[String] = []
 
 var player: CharacterBody2D
 var gate_x := 3720.0
 var checkpoint_xs: Array[float] = []
 var progress_ratio := 0.0
-var checkpoint_unlocked := [false, false]
+var checkpoint_unlocked: Array[bool] = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var game := get_node("../../..")
 	player = game.get_node("Player")
 	gate_x = game.get_node("KingGate").global_position.x
-	checkpoint_xs = [
-		game.get_node(first_checkpoint_name).global_position.x,
-		game.get_node(second_checkpoint_name).global_position.x,
-	]
+	var names: Array[String] = checkpoint_names
+	if names.is_empty():
+		names = [first_checkpoint_name, second_checkpoint_name]
+	for checkpoint_name in names:
+		checkpoint_xs.append(game.get_node(checkpoint_name).global_position.x)
+	checkpoint_unlocked.resize(checkpoint_xs.size())
+	checkpoint_unlocked.fill(false)
 	refresh()
 
 func _process(_delta: float) -> void:

@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -300.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
+	Progress.dying = false
 	if Progress.has_checkpoint:
 		global_position = Progress.checkpoint_position
 
